@@ -1,0 +1,19 @@
+{
+  "name": "comp2068-lab2",
+  "version": "1.0.0",
+  "description": "Node js Calculator",
+  "main": "lab2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chaosman004/comp2068-lab2.git"
+  },
+  "author": "Robert Page",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chaosman004/comp2068-lab2/issues"
+  },
+  "homepage": "https://github.com/Chaosman004/comp2068-lab2#readme"
+}

@@ -1,48 +1,49 @@
-// hello world in the browser
+// node js Calculator
 var http = require('http');
 
-// create and load our own http server with node
+// require node's url module to parse the url's querystring
+var url = require('url');
+
+// create and load http server with node
 http.createServer(function(req, res) {
     
-    // send an ok response to the browser header
-    res.writeHead(200, { 'Content-Type': 'text-plain' });
-
+    // get the querystring
+    var qs = url.parse(req.url, true).query;
+       
     // log to the console
-    console.log('Hello world');
-
+    console.log('working');
     
+    // set the method and parse the x,y values as a float value
+    var method = qs.method,
+        x = parseFloat(qs.x),
+        y = parseFloat(qs.y);
     
-    var getQueryString = function (field, url) {
-            var href = url ? url : window.location.href,
-                reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i'),
-                string = reg.exec(href);
-            return string ? string[1] : null;
-        },
-        urll = 'https://jsbin.com/puwegomoko/edit?js,console&method=add&x=16&y=4.5',
-        method = getQueryString('method', urll),
-        x = parseFloat(getQueryString('x', urll)),
-        y = parseFloat(getQueryString('y', urll));
-
-    console.log("x:" + x + " y:" + y + " method:" + method);
-    if (method === "add" || method === "subtract" ||
-            method === "multiply" || method === "divide") {
-        if (method === "add") {
-            res.write(x + " + " + y + " = " + (x + y));
-        } else if (method === "subtract") {
-            res.write(x + " - " + y + " = " + (x - y));
-        } else if (method === "multiply") {
-            res.write(x + " * " + y + " = " + (x * y));
+        //check to see if the method is correct
+        if (method === "add" || method === "subtract" ||
+                method === "multiply" || method === "divide") {
+            //change size of text to <h1>
+            res.write('<h1>');
+            //check which calculation to do
+            if (method === "add") {
+                res.write(x + ' + ' + y + ' = ' + (x + y));
+            } else if (method === "subtract") {
+                res.write(x + " - " + y + " = " + (x - y));
+            } else if (method === "multiply") {
+                res.write(x + " * " + y + " = " + (x * y));
+            } else {
+                res.write(x + " / " + y + " = " + (x / y));
+            }
         } else {
-            res.write(x + " / " + y + " = " + (x / y));
+            //out put method error message
+            res.write('<h1>Error!</h1><h3><br />'+
+                      'Method must be one of these four words...<br />'+
+                      '-add<br />-subtract<br />-multiply<br />-divide</h3>');
         }
-    } else {
-        res.write("Error!");
-    }
+    
     
     // end the response
     res.end();
 
 }).listen(3000);
 
-// site will load at http://localhost:3000
-console.log('Site is now running at http://localhost:3000');
+// site will load at http://localhost:3000/lab2.js?method=addx=5&y=10
